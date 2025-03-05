@@ -8,8 +8,12 @@ def sum_cubes(n):
     
     This function may not use any loops or list comprehensions.
     """
-
-    pass
+    # Base
+    if n == 0:
+        return 0
+    
+    return n**3 + sum_cubes(n-1)
+    
 
 
 #############################################################
