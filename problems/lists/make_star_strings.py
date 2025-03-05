@@ -6,8 +6,12 @@ def make_star_strings(lst):
     Returns: A list of strings of stars (*)
     """
 
-    ### Replace pass with your code
-    pass
+    out = []
+
+    for val in lst:
+        out.append('*' * val)
+    
+    return out
 
 
 #############################################################
