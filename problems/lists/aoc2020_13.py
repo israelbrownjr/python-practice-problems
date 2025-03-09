@@ -19,9 +19,24 @@ def part1(earliest, buses):
 
     Returns an integer
     """
+    time = earliest
+    a = False
 
-    ### Replace with your code
-    return None
+    while a == False:
+        for id in buses:
+            if id == None:
+                continue
+            if time % id == 0:
+                out = id
+                a = True
+                break
+        if a != True:
+            time += 1
+    
+    return out * (time - earliest)
+
+        
+            
 
 
 def part2(earliest, buses):
