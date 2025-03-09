@@ -18,8 +18,8 @@ import sys
 import os
 
 # Update with the range specified in the problem
-MIN_VALUE=0
-MAX_VALUE=0
+MIN_VALUE= 367479
+MAX_VALUE= 893698
 
 
 def is_valid(password, require_standalone_pair):
@@ -38,10 +38,43 @@ def is_valid(password, require_standalone_pair):
     Returns a boolean (True if the password if valid,
     False otherwise)
     """
+    password = str(password)
+    ## Six-digit number
+    if len(password) != 6:
+        return False
+    
+    #Has two same adjacent digits
+    # Requires Standalone pair
+    a = False
+    if require_standalone_pair:
+        target = password[0]
+        same = 1
+        for i,char in enumerate(password[1::]):
+            if char == target:
+                same +=1
+            else:
+                target = char
+                if same == 2:
+                    a = True
+                    break
+                same = 1
+            if i == len(password[1::]) - 1:
+                if same == 2:
+                    a = True
+    else:
+        for i,char in enumerate(password[0:-1]):
+            if char == password[i + 1]:
+                a = True
+                break
+        
+    if not a:
+        return False
 
-    ### Replace with your code
-    return None
-
+    # Digits never decrease
+    for i,char in enumerate(password[0:-1]):
+        if char > password[i + 1]:
+                return False
+    return True
 
 def count_valid_passwords(lb, ub, require_standalone_pair):
     """
@@ -55,9 +88,14 @@ def count_valid_passwords(lb, ub, require_standalone_pair):
 
     Returns an integer (the number of valid passwords)
     """
+    count = 0
+    possible_password = list(range(lb + 1,ub))
 
-    ### Replace with your code
-    return None
+    for password in possible_password:
+        if is_valid(password,require_standalone_pair):
+            count += 1
+    
+    return count
 
 
 ############################################
@@ -73,4 +111,4 @@ if __name__ == "__main__":
     print(f"Part 1:", count_valid_passwords(MIN_VALUE, MAX_VALUE, False))
 
     # Uncomment the following line when you're ready to work on Part 2
-    #print(f"Part 2:", count_valid_passwords(MIN_VALUE, MAX_VALUE, True))
+    print(f"Part 2:", count_valid_passwords(MIN_VALUE, MAX_VALUE, True))

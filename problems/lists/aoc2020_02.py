@@ -17,9 +17,22 @@ def part1(passwords):
 
     Returns an integer
     """
+    quant_valid = 0
+    for line in passwords:
+        quant_char = 0
+        line = line.split()
+        #Bounds
+        bounds = line[0].split('-')
+        lower_bound = int(bounds[0])
+        upper_bound = int(bounds[1])
+        target = line[1][0]
+        for char in line[2]:
+            if char == target:
+                quant_char += 1
+        if lower_bound <= quant_char and quant_char <= upper_bound:
+            quant_valid += 1
+    return quant_valid
 
-    ### Replace with your code
-    return None
 
 
 def part2(passwords):
@@ -32,10 +45,22 @@ def part2(passwords):
     Returns an integer
     """
 
-    ### Replace with your code
-    return None
-
-
+    quant_valid = 0
+    for line in passwords:
+        line = line.split()
+        #Positions
+        bounds = line[0].split('-')
+        first_position = int(bounds[0]) - 1
+        second_position = int(bounds[1]) - 1
+        target = line[1][0]
+        password = line[2]
+        if password[first_position] == target and password[second_position] != target:
+            quant_valid += 1
+        elif password[first_position] != target and password[second_position] == target:
+            quant_valid += 1
+    return quant_valid
+        
+        
 ############################################
 ###                                      ###
 ###      Do not modify the code below    ###
